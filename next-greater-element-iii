@@ -1,0 +1,37 @@
+class Solution {
+    public int nextGreaterElement(int n) {
+        char[] num = Integer.toString(n).toCharArray();
+        int len = num.length;
+        int firstDefPoint = -1;
+        for (int i = len - 2; i >= 0; i--) {
+            if (num[i] < num[i + 1]) {
+                firstDefPoint = i;
+                break;
+            }
+        }
+        if (firstDefPoint == -1) {
+            return -1;
+        }
+        int secondDefPoint = -1;
+        for (int i = len - 1; i > firstDefPoint; i--) {
+            if (num[i] > num[firstDefPoint]) {
+                secondDefPoint = i;
+                break;
+            }
+        }
+        char temp = num[firstDefPoint];
+        num[firstDefPoint] = num[secondDefPoint];
+        num[secondDefPoint] = temp;
+        int left = firstDefPoint + 1;
+        int right = len - 1;
+        while (left < right) {
+            temp = num[left];
+            num[left] = num[right];
+            num[right] = temp;
+            left++;
+            right--;
+        }
+        long nextGreaterNum = Long.parseLong(new String(num));
+        return (nextGreaterNum > Integer.MAX_VALUE) ? -1 : (int) nextGreaterNum;
+    }
+}

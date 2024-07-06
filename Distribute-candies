@@ -1,0 +1,30 @@
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        int n=candyType.length/2;
+        HashSet<Integer>set=new HashSet<>();
+        for(int num: candyType){
+            set.add(num);
+        }
+        int count=0;
+        for(int num:set){
+            count++;
+        }
+        if(count<=n) return count;
+        else{
+            return n;
+        } 
+           
+    }
+}
+// OR
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        int n=candyType.length/2;
+        HashSet<Integer>set=new HashSet<>();
+        for(int num: candyType){
+            set.add(num);
+        }
+        return Math.min(set.size(), n);
+           
+    }
+}

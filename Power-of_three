@@ -1,0 +1,12 @@
+class Solution {
+    public boolean isPowerOfThree(int n) {
+        if (n < 1) {
+            return false;
+        }
+        int power = 1;
+        while (power < n) {
+            power *= 3;
+        }
+        return power == n;
+    }
+}

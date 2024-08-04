@@ -1,0 +1,20 @@
+class Solution {
+     private static final int MOD = 1_000_000_007;
+    public int rangeSum(int[] nums, int n, int left, int right) {
+       
+        List<Integer> subarraySums = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+               sum = (sum + nums[j]) % MOD; 
+                subarraySums.add(sum);
+            }
+        }
+         Collections.sort(subarraySums);
+        int totalSum = 0;
+        for (int i = left - 1; i < right; i++) {
+           totalSum = (totalSum + subarraySums.get(i)) % MOD;
+        }
+        return totalSum;
+    }
+}

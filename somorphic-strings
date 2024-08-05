@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        char[] charT = t.toCharArray();
+        int index = 0;
+        HashMap<Character, Character> mapST = new HashMap<>();
+        HashMap<Character, Character> mapTS = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            if (!mapST.containsKey(c)) {
+                if (mapTS.containsKey(charT[index])) {
+                    return false;
+                }
+                mapST.put(c, charT[index]);
+                mapTS.put(charT[index], c);
+            } else {
+                if (mapST.get(c) != charT[index]) {
+                    return false;
+                }
+            }
+            index++;
+        }
+        return true;
+    }
+}

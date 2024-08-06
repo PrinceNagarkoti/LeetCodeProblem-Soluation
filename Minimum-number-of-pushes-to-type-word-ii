@@ -1,0 +1,23 @@
+class Solution {
+    public int minimumPushes(String word) {
+        int[] frequency = new int[26];
+        for (char c : word.toCharArray()) {
+            frequency[c - 'a']++;
+        }
+        Integer[] freqArray = new Integer[26];
+        for (int i = 0; i < 26; i++) {
+            freqArray[i] = frequency[i];
+        }
+        Arrays.sort(freqArray, Collections.reverseOrder());
+        
+        int ans = 0;
+        for (int i = 0; i < 26; i++) {
+            if (freqArray[i] == 0) {
+                break;
+            }
+            ans += freqArray[i] * ((i / 8) + 1);
+        }
+        
+        return ans;
+    }
+}

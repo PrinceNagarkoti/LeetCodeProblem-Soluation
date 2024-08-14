@@ -1,0 +1,52 @@
+class Solution {
+    int m;
+    int n;
+
+    public int minDays(int[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        int isLands = totalNumIsland(grid);
+        if (1 < isLands || isLands == 0) {
+            return 0;
+        } else {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 1) {
+                        grid[i][j] = 0;
+                        isLands = totalNumIsland(grid);
+                        grid[i][j] = 1;
+                        if (1 < isLands || isLands == 0) {
+                            return 1;
+                        }
+                    }
+                }
+            }
+        }
+        return 2;
+    }
+
+    private int totalNumIsland(int[][] grid){
+        boolean [][] visitArr=new boolean[m][n];
+        int island=0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(!visitArr[i][j] && grid[i][j]==1){
+                    dfs(i,j,grid,visitArr);
+                    island++;
+                }
+            }
+        }
+        return island;
+    }
+
+    private void dfs(int i, int j, int [][]grid , boolean[][]visitArr){
+        if(i<0||grid.length<=i||j<0||grid[0].length<=j||visitArr[i][j]||grid[i][j]==0){
+            return;
+        }
+        visitArr[i][j]=true;
+        dfs(i+1,j,grid,visitArr);
+        dfs(i-1,j,grid,visitArr);
+        dfs(i,j+1,grid,visitArr);
+        dfs(i,j-1,grid,visitArr);
+    }
+}

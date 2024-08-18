@@ -16,7 +16,7 @@
 class Solution {
     boolean check(TreeNode root, int targetSum, int sum) {
         if (root == null) {
-            return false;
+            return false; 
         }
         sum += root.val;
         if (root.left == null && root.right == null) {

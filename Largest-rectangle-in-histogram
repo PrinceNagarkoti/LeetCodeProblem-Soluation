@@ -1,0 +1,72 @@
+//brute force approach
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int res = 0;
+        int n = heights.length;
+        for (int i = 0; i < n; i++) {
+            int curr = heights[i];
+            for (int j = i - 1; j >= 0; j--) {
+                if (heights[j] >= heights[i])
+                    curr += heights[i];
+                else
+                    break;
+            }
+            for (int j = i + 1; j < n; j++) {
+                if (heights[j] >= heights[i])
+                    curr += heights[i];
+                else
+                    break;
+            }
+            res = Math.max(res, curr);
+        }
+        return res;
+    }
+}
+
+// optimzation Solution
+class Solution {
+    
+    public int[] previousSmaller(int[] heights) {
+        int n = heights.length;
+        int[] ans = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            ans[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+        return ans;
+    }
+
+    public int[] nextSmaller(int[] heights) {
+        int n = heights.length;
+        int[] ans = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            ans[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+        return ans;
+    }
+    
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int res = 0;
+        
+        int[] ps = previousSmaller(heights);
+        int[] ns = nextSmaller(heights);
+        
+        for (int i = 0; i < n; i++) {
+            int curr = (ns[i] - ps[i] - 1) * heights[i];
+            res = Math.max(res, curr);
+        }
+        return res;
+    }
+}

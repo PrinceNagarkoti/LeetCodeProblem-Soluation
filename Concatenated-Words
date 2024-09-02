@@ -1,0 +1,32 @@
+class Solution {
+    private Map<String, Boolean> memo;
+    private boolean isConcat(String word,Set<String>wordset){
+         if (memo.containsKey(word)) {
+            return memo.get(word);
+        }
+         int l=word.length();
+        for(int i=0; i<l; i++){
+            String pre=word.substring(0,i+1);
+            String suff=word.substring(i+1);
+            if((wordset.contains(pre)&& isConcat(suff,wordset))||
+            (wordset.contains(pre)&& wordset.contains(suff))){
+                memo.put(word, true);
+                return true;
+            }
+        }
+        memo.put(word, false);
+        return false;
+
+    }
+    public List<String> findAllConcatenatedWordsInADict(String[] words) {
+        memo= new HashMap<>();
+        List<String> result=new ArrayList<>();
+        Set<String> wordset=new HashSet<>(Arrays.asList(words));
+        for(String word: words){
+            if(isConcat(word,wordset)){
+                result.add(word);
+            }
+        }
+        return result;
+    }
+}

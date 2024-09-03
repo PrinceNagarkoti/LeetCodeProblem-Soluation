@@ -1,0 +1,33 @@
+class Solution {
+    public boolean buddyStrings(String s, String goal) {
+        if (s.length() != goal.length()) return false;
+        if (s.equals(goal)) {
+            Set<Character> seen = new HashSet<>();
+            for (char c : s.toCharArray()) {
+                if (!seen.add(c)) {
+                    return true; 
+                }
+            }
+            return false; 
+        }
+        List<Integer> indx = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                indx.add(i);
+            }
+        }
+        if (indx.size() != 2) {
+            return false;
+        }
+
+        int first = indx.get(0);
+        int second = indx.get(1);
+
+        char[] sArray = s.toCharArray();
+        char temp = sArray[first];
+        sArray[first] = sArray[second];
+        sArray[second] = temp;
+
+        return new String(sArray).equals(goal);
+    }
+}

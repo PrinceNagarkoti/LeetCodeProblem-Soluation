@@ -1,0 +1,17 @@
+class Solution {
+    public static int MOD=1000000007;
+    public int countHomogenous(String s) {
+        int n=s.length();
+        int res=0;
+        int count=0;
+        for(int i=0; i<n; i++){
+            if(0<i && s.charAt(i)==s.charAt(i-1)){
+                count++;
+            }else{
+                count=1;
+            }
+            res=(res+count)%MOD;
+        }
+        return res;
+    }
+}

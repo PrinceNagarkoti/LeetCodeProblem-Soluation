@@ -1,0 +1,26 @@
+class Solution {
+    public int minExtraChar(String s, String[] dictionary) {
+        int n = s.length();
+        Set<String> dict = new HashSet<>();
+        for (String word : dictionary) {
+            dict.add(word);
+        }
+
+        int[] dp = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            dp[i] = i;
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                String sub = s.substring(i, j);
+                if (dict.contains(sub)) {
+                    dp[j] = Math.min(dp[j], dp[i]);
+                } else {
+                    dp[j] = Math.min(dp[j], dp[i] + j - i);
+                }
+            }
+        }
+        return dp[n];
+    }
+}
